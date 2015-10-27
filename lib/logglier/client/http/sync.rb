@@ -13,7 +13,7 @@ module Logglier
           Errno::ECONNREFUSED
         ]
 
-        RETRIES = 3
+        RETRIES = 10
 
         attr_accessor :failsafe
 
@@ -62,7 +62,7 @@ module Logglier
             if retries < RETRIES
               retries += 1
               failsafe_retrying(e, message, retries)
-              sleep(retries)
+              sleep(5 * retries)
               retry
             else
               failsafe_errored(e, message)
